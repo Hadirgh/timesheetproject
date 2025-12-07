@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    tools {
+    tools { 
         jdk 'JAVA_HOME'
         maven 'M2_HOME'
     }
@@ -9,15 +9,17 @@ pipeline {
     stages {
         stage('GIT') {
             steps {
-                git branch: 'main', url: 'https://github.com/Hadirgh/timesheetproject.git'
+                git branch: 'main',
+                    url: 'https://github.com/Hadirgh/timesheetproject.git'
             }
         }
 
         stage('Compile Stage') {
             steps {
-                sh 'mvn clean compile'
+                dir('timesheet') {  // <- Exécute Maven dans le sous-dossier 'timesheet'
+                    sh 'mvn clean compile'
+                }
             }
         }
     }
 }
-
