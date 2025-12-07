@@ -9,15 +9,18 @@ pipeline {
     stages {
         stage('GIT') {
             steps {
-                git branch: 'main', url: 'https://github.com/Hadirgh/timesheetproject.git'
+                git branch: 'main',
+                    url: 'https://github.com/Hadirgh/timesheetproject.git'
             }
         }
 
         stage('Compile Stage') {
             steps {
-                sh 'mvn clean compile'
+                // se déplacer dans le sous-dossier timesheet avant de lancer Maven
+                dir('timesheet') {
+                    sh 'mvn clean compile'
+                }
             }
         }
     }
 }
-
